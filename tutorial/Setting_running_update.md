@@ -76,9 +76,9 @@ Also, set the PATH in .bashrc, for example:
 
 Clone codes from GitHub:
 
-    git clone https://github.com/yghlc/Landuse_DL ./codes/PycharmProjects/Landuse_DL
-    git clone https://github.com/yghlc/DeeplabforRS ./codes/PycharmProjects/DeeplabforRS
-    git clone https://github.com/yghlc/models.git ./codes/PycharmProjects/tensorflow/yghlc_tf_model
+    git clone https://github.com/yghlc/Landuse_DL ./codes_demo/PycharmProjects/Landuse_DL
+    git clone https://github.com/yghlc/DeeplabforRS ./codes_demo/PycharmProjects/DeeplabforRS
+    git clone https://github.com/yghlc/models.git ./codes_demo/PycharmProjects/tensorflow/yghlc_tf_model
     
     # then set the tensorflow research in the network parameter (e.g.,, deeplabv3plus_xception65.ini):
     tf_research_dir = ~/codes/PycharmProjects/tensorflow/yghlc_tf_model/research
