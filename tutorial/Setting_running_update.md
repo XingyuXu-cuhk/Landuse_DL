@@ -4,8 +4,14 @@
 This file introduces how to set the environment for running this repo.
 It also provides a reference for setting and running on your own workstations.
 
+#### Step 1: Login in ITSC
 
-#### Step 1: install packages and dependencies
+Connect ITSC and login in with you account Install 
+
+    ssh sID@chpc-login01.itsc.cuhk.edu.hk
+    input password
+    
+#### Step 2: install packages and dependencies
 
 Install python using miniconda 
 
