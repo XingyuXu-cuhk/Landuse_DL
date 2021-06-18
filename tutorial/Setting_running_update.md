@@ -69,19 +69,15 @@ Then we unpack them to the folder "programs"
     tar xvf cuDNN_7.4_cuda10.tar.gz -C programs
     tar xvf cuda-10.0.tar.gz -C programs
 
-Also, set the PATH and LD_LIBRARY_PATH in .bashrc, for example:
+Also, set the PATH in .bashrc, for example:
     
-    # CUDA 10.0
-    export PATH="HOME/programs/cuda-10.0/bin:$PATH"
-    export LD_LIBRARY_PATH="HOME/programs/cuda-10.0/lib64:$LD_LIBRARY_PATH"
-    #lib path of cuDNN v.7.4 for CUDA 10 (tf v1.14 need this one)
-    export LD_LIBRARY_PATH="HOME/programs/cuDNN_7.4_cuda10/cuda/lib64:$LD_LIBRARY_PATH"
-    
-    noted: replace the "HOME" as your home folder, e.g., /home/hlc
+    PATH=/bin:HOME/bin:HOME/programs/miniconda3/bin:$PATH \
+
 
 Clone codes from GitHub:
 
     git clone https://github.com/yghlc/Landuse_DL ./codes/PycharmProjects/Landuse_DL
+    git clone https://github.com/yghlc/DeeplabforRS ./codes/PycharmProjects/DeeplabforRS
     git clone https://github.com/yghlc/models.git ./codes/PycharmProjects/tensorflow/yghlc_tf_model
     
     # then set the tensorflow research in the network parameter (e.g.,, deeplabv3plus_xception65.ini):
@@ -90,6 +86,14 @@ Clone codes from GitHub:
 
 
 ## Run training, prediction, and post-processing
+
+Make a working folder under *project/LinLiu/*
+
+    mkdir /project/LinLiu/Agnes_DL
+    cd /project/LinLiu/Agnes_DL
+    mkdir test_deeplabV3+_1_GL
+    cd test_deeplabV3+_1_GL
+    
 After the environment for running Landuse_DL is ready, you can start training your model as well as prediction. 
 Suppose your working folder is *test_deeplabV3+_1*, in this folder, a list of files should be presented:
     
@@ -97,6 +101,8 @@ Suppose your working folder is *test_deeplabV3+_1*, in this folder, a list of fi
     main_para.ini
     study_area_1.ini
     deeplabv3plus_xception65.ini
+    singularity.sh
+    run_INsingularity_miniconda.sh
 
 *exe.sh* is a script for running the whole process, including preparing training images, 
 training, prediction, and post-processing. You may want to comment out some of the lines in this file 
@@ -114,11 +120,27 @@ and elevation files (if available). Please edit it accordingly. We can have mult
 *deeplabv3plus_xception65.ini* is the file to define the deep learning network and some training parameters. 
 Please edit it accordingly.
 
+*singularity.sh* is the file of batch-job submission script.
+Please edit the job name ( #SBATCH -J ) and notified mail address ( #SBATCH --mail-user=) accordingly
+
+*run_INsingularity_miniconda.sh* is the file to set the running codes an SINGULARITYENV_PATH 
+
+The above files can be copies from */project/LinLiu/demo_carol/test_deeplabV3+_1_example* 
+
+    cp /project/LinLiu/carol/test_deeplabV3+_1_S2_rgb2/exe.sh ./
+    cp ../../carol/test_deeplabV3+_1_S2_rgb2/main_para.ini ./
+    cp ../../carol/test_deeplabV3+_1_S2_rgb2/poiqu_rgb_2018.ini ./
+    cp ../../carol/test_deeplabV3+_1_S2_rgb2/poiqu_rgb_2019.ini ./
+    cp ../../carol/test_deeplabV3+_1_S2_rgb2/bhutan_rgb.ini ./
+    cp ../../carol/test_deeplabV3+_1_S2_rgb2/deeplabv3plus_xception65.ini ./
+    cp ../../carol/test_deeplabV3+_1_S2_rgb2/singularity.sh ./
+    cp ../../carol/test_deeplabV3+_1_S2_rgb2/run_INsingularity_miniconda.sh ./
+
 
 
 To start a job, run 
 
-    ./exe.sh
+    sbatch singularity
 
 
 
